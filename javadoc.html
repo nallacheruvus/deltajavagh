@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FifthProj Java API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .toc-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .toc-list li {
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .toc-list li:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+        
+        .toc-list a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .toc-list a:hover {
+            text-decoration: underline;
+        }
+        
+        .package {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .package-name {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .class-item {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .class-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .class-type {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+            margin-right: 5px;
+        }
+        
+        .description {
+            color: #555;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+        
+        .method-list {
+            margin-top: 20px;
+        }
+        
+        .method-list h4 {
+            color: #764ba2;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .method {
+            background: white;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+        }
+        
+        .method-name {
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .method-desc {
+            color: #666;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.95em;
+            margin-top: 5px;
+            padding-left: 10px;
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .keyword {
+            color: #d73a49;
+            font-weight: bold;
+        }
+        
+        .type {
+            color: #6f42c1;
+        }
+        
+        .param {
+            color: #24292e;
+            background: #f6f8fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #667eea;
+            color: white;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .back-to-top {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        
+        .back-to-top:hover {
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 FifthProj Java API Documentation</h1>
+        <p>Comprehensive JavaDoc for the FifthProj Application</p>
+        <p style="font-size: 0.95em; margin-top: 10px;">Generated on March 5, 2026</p>
+    </div>
+    
+    <div class="container">
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📚 Documentation Overview</h2>
+            <ul class="toc-list">
+                <li><a href="#com-sa-cls">com.sa.cls</a> - Main Query Classes</li>
+                <li><a href="#com-sa-db">com.sa.db</a> - Database Utilities</li>
+                <li><a href="#com-sa-recs">com.sa.recs</a> - Data Records</li>
+                <li><a href="#comm-sa-inte">comm.sa.inte</a> - Interface Definitions</li>
+            </ul>
+        </div>
+        
+        <!-- Package: com.sa.cls -->
+        <div class="package">
+            <div class="package-name" id="com-sa-cls">📦 Package: com.sa.cls</div>
+            <p class="description">This package contains the main classes for performing query operations and testing functionality.</p>
+            
+            <!-- Class: MnClsA -->
+            <div class="class-item">
+                <span class="class-type">CLASS</span>
+                <div class="class-name">MnClsA</div>
+                <p class="description">
+                    Main class for performing various query operations on Register records.
+                    <br><br>
+                    This class demonstrates the use of Java Streams API and functional programming 
+                    to perform filtering, sorting, and statistical operations on user registration data. 
+                    It connects to a database using DbUtilsCls and processes Register records.
+                </p>
+                
+                <div class="method-list">
+                    <h4>Key Functionality:</h4>
+                    <ul style="margin-left: 20px; color: #555;">
+                        <li>Statistical analysis (max, min, average, sum, count) of record IDs</li>
+                        <li>Filtering records by specific criteria (ID values, name patterns)</li>
+                        <li>Sorting records in ascending or descending order</li>
+                        <li>Displaying view data from the database</li>
+                    </ul>
+                    
+                    <h4>Methods:</h4>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">main</span>(<span class="param">String[] args</span>)
+                        <div class="method-desc">
+                            Performs statistical analysis on Register records including maximum, minimum, 
+                            average ID value, total count, and sum of all ID values.
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">firstQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegs</span>)
+                        <div class="method-desc">
+                            Initial query entry point that displays all register records.
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">secQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegs</span>)
+                        <div class="method-desc">
+                            Sorts registers in descending order by ID.
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">thirdQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegs</span>)
+                        <div class="method-desc">
+                            Filters and displays registers with odd ID values (1, 3, 5, 7, 9).
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">fourthQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegs</span>)
+                        <div class="method-desc">
+                            Filters and displays registers with even ID values (2, 4, 6, 8, 10).
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">fifthQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegs</span>)
+                        <div class="method-desc">
+                            Filters and displays registers whose names start with 'J'.
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">sixthQuery</span>()
+                        <div class="method-desc">
+                            Retrieves and displays MyView records from the database.
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">sevenQuery</span>(<span class="type">Stream</span>&lt;<span class="type">Register</span>&gt; <span class="param">strRegsa</span>)
+                        <div class="method-desc">
+                            Displays all registers from the provided stream.
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+            
+            <!-- Class: TestCls -->
+            <div class="class-item">
+                <span class="class-type">CLASS</span>
+                <div class="class-name">TestCls</div>
+                <p class="description">
+                    Test class for demonstrating Register record functionality.
+                    <br><br>
+                    This class creates a sample Register instance and displays its properties 
+                    (id, name, email, mobile) to verify the record implementation.
+                </p>
+                
+                <div class="method-list">
+                    <h4>Methods:</h4>
+                    
+                    <div class="method">
+                        <span class="keyword">public static void</span> <span class="method-name">main</span>(<span class="param">String[] args</span>)
+                        <div class="method-desc">
+                            Creates a Register instance with sample data and prints all record fields to the console.
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+        </div>
+        
+        <!-- Package: com.sa.db -->
+        <div class="package">
+            <div class="package-name" id="com-sa-db">📦 Package: com.sa.db</div>
+            <p class="description">Database utility package containing operations for database access and data retrieval.</p>
+            
+            <!-- Class: DbUtilsCls -->
+            <div class="class-item">
+                <span class="class-type">CLASS</span>
+                <div class="class-name">DbUtilsCls</div>
+                <p class="description">
+                    Database utility class for performing database operations.
+                    <br><br>
+                    This class implements IFaceDbUtil and provides methods to:
+                </p>
+                
+                <ul style="margin-left: 20px; color: #555; margin-bottom: 15px;">
+                    <li>Execute queries to retrieve Register records from the database</li>
+                    <li>Fetch MyView records from a database view</li>
+                    <li>Execute stored procedures for advanced data retrieval</li>
+                </ul>
+                
+                <p class="description">
+                    It maintains a static database connection using MySQL JDBC driver 
+                    and provides methods to map ResultSet data to Java objects.
+                </p>
+                
+                <div class="method-list">
+                    <h4>Database Connection Details:</h4>
+                    <table>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Driver</td>
+                            <td>MySQL Connector/J (com.mysql.cj.jdbc.Driver)</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>deltajavamarch</td>
+                        </tr>
+                        <tr>
+                            <td>Connection URL</td>
+                            <td>jdbc:mysql://localhost:3306/deltajavamarch</td>
+                        </tr>
+                        <tr>
+                            <td>Username</td>
+                            <td>root</td>
+                        </tr>
+                    </table>
+                    
+                    <h4>Methods:</h4>
+                    
+                    <div class="method">
+                        <span class="keyword">public</span> <span class="type">List</span>&lt;<span class="type">Register</span>&gt; <span class="method-name">retRegs</span>()
+                        <div class="method-desc">
+                            Retrieves all Register records from the database. Executes a PreparedStatement query 
+                            and maps each ResultSet row to a Register object.
+                            <br><strong>Returns:</strong> List of Register objects containing all database records
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public</span> <span class="type">List</span>&lt;<span class="type">MyView</span>&gt; <span class="method-name">retList</span>()
+                        <div class="method-desc">
+                            Retrieves MyView records from the database view. Executes a query to fetch 
+                            records from the myyiew database view.
+                            <br><strong>Returns:</strong> List of MyView objects containing view records
+                        </div>
+                    </div>
+                    
+                    <div class="method">
+                        <span class="keyword">public</span> <span class="type">List</span>&lt;<span class="type">Register</span>&gt; <span class="method-name">retRegsProc</span>()
+                        <div class="method-desc">
+                            Retrieves Register records using a stored procedure. Executes the 'myproc' stored procedure 
+                            and maps each ResultSet row to a Register object.
+                            <br><strong>Returns:</strong> List of Register objects returned by the stored procedure
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+        </div>
+        
+        <!-- Package: com.sa.recs -->
+        <div class="package">
+            <div class="package-name" id="com-sa-recs">📦 Package: com.sa.recs</div>
+            <p class="description">Record classes for data representation and data transfer objects.</p>
+            
+            <!-- Record: Register -->
+            <div class="class-item">
+                <span class="class-type">RECORD</span>
+                <div class="class-name">Register</div>
+                <p class="description">
+                    Record class representing a user registration entry.
+                    <br><br>
+                    This Java record encapsulates user registration data:
+                </p>
+                
+                <div class="method-list">
+                    <h4>Fields:</h4>
+                    <table>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>id</td>
+                            <td>int</td>
+                            <td>Unique identifier for the user</td>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                            <td>User's full name</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td>String</td>
+                            <td>User's email address</td>
+                        </tr>
+                        <tr>
+                            <td>mobile</td>
+                            <td>String</td>
+                            <td>User's mobile phone number</td>
+                        </tr>
+                    </table>
+                    
+                    <h4>Notes:</h4>
+                    <p style="color: #555; margin-left: 20px;">
+                        The record is immutable and provides accessor methods for each field. 
+                        It's primarily used for mapping database records to Java objects 
+                        and for stream-based data processing operations.
+                    </p>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+            
+            <!-- Record: MyView -->
+            <div class="class-item">
+                <span class="class-type">RECORD</span>
+                <div class="class-name">MyView</div>
+                <p class="description">
+                    Record class representing a user view with personal information.
+                    <br><br>
+                    This Java record encapsulates user view data:
+                </p>
+                
+                <div class="method-list">
+                    <h4>Fields:</h4>
+                    <table>
+                        <tr>
+                            <th>Field Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>name</td>
+                            <td>String</td>
+                            <td>User's full name</td>
+                        </tr>
+                        <tr>
+                            <td>email</td>
+                            <td>String</td>
+                            <td>User's email address</td>
+                        </tr>
+                        <tr>
+                            <td>mobile</td>
+                            <td>String</td>
+                            <td>User's mobile phone number</td>
+                        </tr>
+                        <tr>
+                            <td>raddress</td>
+                            <td>String</td>
+                            <td>User's residential address</td>
+                        </tr>
+                    </table>
+                    
+                    <h4>Methods:</h4>
+                    
+                    <div class="method">
+                        <span class="keyword">public</span> <span class="type">String</span> <span class="method-name">toString</span>()
+                        <div class="method-desc">
+                            Provides a formatted string representation of the MyView record with 
+                            all fields displayed in a readable multi-line format.
+                            <br><strong>Returns:</strong> Formatted string containing name, email, mobile, and address
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+        </div>
+        
+        <!-- Package: comm.sa.inte -->
+        <div class="package">
+            <div class="package-name" id="comm-sa-inte">📦 Package: comm.sa.inte</div>
+            <p class="description">Interface definitions for database utilities and configuration.</p>
+            
+            <!-- Interface: IFaceDbUtil -->
+            <div class="class-item">
+                <span class="class-type">INTERFACE</span>
+                <div class="class-name">IFaceDbUtil</div>
+                <p class="description">
+                    Interface for database utility constants and connection parameters.
+                    <br><br>
+                    This interface defines all database connection constants and SQL queries 
+                    used throughout the application for accessing the deltajavamarch database.
+                </p>
+                
+                <div class="method-list">
+                    <h4>Connection Constants:</h4>
+                    <table>
+                        <tr>
+                            <th>Constant Name</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>className</td>
+                            <td>com.mysql.cj.jdbc.Driver</td>
+                            <td>MySQL JDBC Driver class name</td>
+                        </tr>
+                        <tr>
+                            <td>url</td>
+                            <td>jdbc:mysql://localhost:3306/deltajavamarch</td>
+                            <td>Database connection URL for MySQL</td>
+                        </tr>
+                        <tr>
+                            <td>uname</td>
+                            <td>root</td>
+                            <td>Database username for authentication</td>
+                        </tr>
+                        <tr>
+                            <td>password</td>
+                            <td>admin</td>
+                            <td>Database password for authentication</td>
+                        </tr>
+                    </table>
+                    
+                    <h4>Predefined Queries:</h4>
+                    <table>
+                        <tr>
+                            <th>Query Name</th>
+                            <th>SQL Query</th>
+                            <th>Purpose</th>
+                        </tr>
+                        <tr>
+                            <td>query</td>
+                            <td>SELECT * FROM register</td>
+                            <td>Retrieve all registers</td>
+                        </tr>
+                        <tr>
+                            <td>querya</td>
+                            <td>SELECT * FROM register ORDER BY id DESC</td>
+                            <td>Retrieve all registers sorted by ID descending</td>
+                        </tr>
+                        <tr>
+                            <td>queryb</td>
+                            <td>SELECT * FROM register WHERE id IN (1,3,5,7,9)</td>
+                            <td>Retrieve registers with odd IDs</td>
+                        </tr>
+                        <tr>
+                            <td>queryc</td>
+                            <td>SELECT * FROM register WHERE id IN (2,4,6,8,10)</td>
+                            <td>Retrieve registers with even IDs</td>
+                        </tr>
+                        <tr>
+                            <td>queryd</td>
+                            <td>SELECT * FROM register WHERE name LIKE 'J%'</td>
+                            <td>Retrieve registers whose names start with 'J'</td>
+                        </tr>
+                        <tr>
+                            <td>querye</td>
+                            <td>SELECT * FROM myyiew</td>
+                            <td>Retrieve records from the myyiew database view</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <p style="margin-top: 20px; color: #999;">
+                    <strong>Author:</strong> Development Team | <strong>Version:</strong> 1.0
+                </p>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div class="package" style="margin-top: 40px; background: #f0f4ff; border-top: 4px solid #667eea;">
+            <h2 style="color: #667eea; margin-bottom: 15px;">📋 Documentation Summary</h2>
+            <table>
+                <tr>
+                    <th>Package</th>
+                    <th>Classes/Interfaces</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>com.sa.cls</strong></td>
+                    <td>MnClsA, TestCls</td>
+                    <td>Query operations and testing functionality for Register records</td>
+                </tr>
+                <tr>
+                    <td><strong>com.sa.db</strong></td>
+                    <td>DbUtilsCls</td>
+                    <td>Database connection and data retrieval utilities</td>
+                </tr>
+                <tr>
+                    <td><strong>com.sa.recs</strong></td>
+                    <td>Register, MyView</td>
+                    <td>Data records representing user registration and view information</td>
+                </tr>
+                <tr>
+                    <td><strong>comm.sa.inte</strong></td>
+                    <td>IFaceDbUtil</td>
+                    <td>Interface with database configuration constants and SQL queries</td>
+                </tr>
+            </table>
+        </div>
+        
+        <a href="#" class="back-to-top">↑ Back to Top</a>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2026 Development Team. All rights reserved.</p>
+        <p>FifthProj Java API Documentation | Generated on March 5, 2026</p>
+    </div>
+    
+    <script>
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Smooth scrolling for table of contents links
+        document.querySelectorAll('.toc-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

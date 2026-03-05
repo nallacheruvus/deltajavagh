@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FifthProj Database & Query Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+        }
+        
+        .card.accent1 {
+            border-left-color: #764ba2;
+        }
+        
+        .card.accent2 {
+            border-left-color: #f093fb;
+        }
+        
+        .card.accent3 {
+            border-left-color: #4facfe;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            font-size: 1.8em;
+        }
+        
+        .card h2 {
+            border-bottom-color: inherit;
+            color: #333;
+        }
+        
+        .card.accent1 h2 {
+            color: #764ba2;
+        }
+        
+        .card.accent2 h2 {
+            color: #f093fb;
+        }
+        
+        .card.accent3 h2 {
+            color: #4facfe;
+        }
+        
+        h3 {
+            color: #555;
+            margin: 20px 0 15px 0;
+            font-size: 1.2em;
+        }
+        
+        h4 {
+            color: #667eea;
+            margin: 15px 0 10px 0;
+            font-size: 1em;
+        }
+        
+        .query-box {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.95em;
+        }
+        
+        .code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .grid-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .grid-item h4 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #0c5460;
+        }
+        
+        .warning-box {
+            background: #f8d7da;
+            border-left: 4px solid #721c24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #721c24;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #155724;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            color: #155724;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        .highlight {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .method-signature {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #667eea;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .toc {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+        
+        .toc ol {
+            margin: 10px 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗄️ Database & Query Guide</h1>
+            <p>FifthProj Database Architecture, Queries, and Operations</p>
+        </header>
+        
+        <!-- Table of Contents -->
+        <div class="card">
+            <h2>📑 Quick Navigation</h2>
+            <div class="toc">
+                <ol>
+                    <li><a href="#database-setup">Database Setup & Configuration</a></li>
+                    <li><a href="#connection-params">Connection Parameters</a></li>
+                    <li><a href="#queries">Available Queries</a></li>
+                    <li><a href="#methods">Database Methods</a></li>
+                    <li><a href="#examples">Usage Examples</a></li>
+                    <li><a href="#schema">Database Schema</a></li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Database Setup -->
+        <div class="card" id="database-setup">
+            <h2>🔧 Database Setup & Configuration</h2>
+            
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>MySQL Server installed and running</li>
+                <li>MySQL Connector/J JDBC driver</li>
+                <li>Java 14 or higher</li>
+            </ul>
+            
+            <h3>Database Configuration</h3>
+            <p>The application is configured to connect to a MySQL database with the following details:</p>
+            
+            <table>
+                <tr>
+                    <th>Configuration Item</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><strong>Database Name</strong></td>
+                    <td>deltajavamarch</td>
+                    <td>Primary database for the application</td>
+                </tr>
+                <tr>
+                    <td><strong>Host</strong></td>
+                    <td>localhost</td>
+                    <td>Local machine (127.0.0.1)</td>
+                </tr>
+                <tr>
+                    <td><strong>Port</strong></td>
+                    <td>3306</td>
+                    <td>Default MySQL port</td>
+                </tr>
+                <tr>
+                    <td><strong>Driver Class</strong></td>
+                    <td>com.mysql.cj.jdbc.Driver</td>
+                    <td>MySQL Connector/J JDBC Driver</td>
+                </tr>
+                <tr>
+                    <td><strong>Username</strong></td>
+                    <td>root</td>
+                    <td>Database user account</td>
+                </tr>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td>admin</td>
+                    <td>User password</td>
+                </tr>
+            </table>
+            
+            <h3>Connection URL</h3>
+            <div class="query-box">
+jdbc:mysql://localhost:3306/deltajavamarch
+            </div>
+        </div>
+        
+        <!-- Connection Parameters -->
+        <div class="card accent1" id="connection-params">
+            <h2>🔌 Connection Parameters</h2>
+            
+            <h3>Interface Constants (IFaceDbUtil.java)</h3>
+            
+            <div class="method-signature">
+public String className = "com.mysql.cj.jdbc.Driver";
+            </div>
+            <p>The JDBC driver class for MySQL connections.</p>
+            
+            <div class="method-signature">
+public String url = "jdbc:mysql://localhost:3306/deltajavamarch";
+            </div>
+            <p>The complete JDBC connection URL including host, port, and database name.</p>
+            
+            <div class="method-signature">
+public String uname = "root";
+            </div>
+            <p>The database username for authentication.</p>
+            
+            <div class="method-signature">
+public String password = "admin";
+            </div>
+            <p>The database password for authentication.</p>
+            
+            <div class="warning-box">
+                ⚠️ <strong>Security Note:</strong> In production environments, never hardcode database credentials. 
+                Use environment variables or configuration files with restricted access.
+            </div>
+        </div>
+        
+        <!-- Queries Section -->
+        <div class="card accent2" id="queries">
+            <h2>🔍 Available Queries</h2>
+            
+            <h3>Query Overview</h3>
+            <p>The application provides six predefined SQL queries for different data retrieval scenarios:</p>
+            
+            <h3>1. Basic Query - All Records</h3>
+            <div class="grid-item">
+                <h4>Query Name: query</h4>
+                <p><strong>Purpose:</strong> Retrieve all records from the register table</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM register;
+            </div>
+            <p><strong>Usage:</strong> Returns all user registration records from the database.</p>
+            
+            <h3>2. Descending Order Query</h3>
+            <div class="grid-item">
+                <h4>Query Name: querya</h4>
+                <p><strong>Purpose:</strong> Retrieve all records sorted by ID in descending order</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM register ORDER BY id DESC;
+            </div>
+            <p><strong>Usage:</strong> Used by <span class="highlight">secQuery()</span> method to display records from highest to lowest ID.</p>
+            
+            <h3>3. Odd ID Query</h3>
+            <div class="grid-item">
+                <h4>Query Name: queryb</h4>
+                <p><strong>Purpose:</strong> Retrieve records with odd ID values</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM register WHERE id IN (1,3,5,7,9);
+            </div>
+            <p><strong>Usage:</strong> Used by <span class="highlight">thirdQuery()</span> method to filter odd-numbered IDs.</p>
+            
+            <h3>4. Even ID Query</h3>
+            <div class="grid-item">
+                <h4>Query Name: queryc</h4>
+                <p><strong>Purpose:</strong> Retrieve records with even ID values</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM register WHERE id IN (2,4,6,8,10);
+            </div>
+            <p><strong>Usage:</strong> Used by <span class="highlight">fourthQuery()</span> method to filter even-numbered IDs.</p>
+            
+            <h3>5. Name Filter Query</h3>
+            <div class="grid-item">
+                <h4>Query Name: queryd</h4>
+                <p><strong>Purpose:</strong> Retrieve records where name starts with 'J'</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM register WHERE name LIKE 'J%';
+            </div>
+            <p><strong>Usage:</strong> Used by <span class="highlight">fifthQuery()</span> method to filter names starting with letter 'J'.</p>
+            
+            <h3>6. View Query</h3>
+            <div class="grid-item">
+                <h4>Query Name: querye</h4>
+                <p><strong>Purpose:</strong> Retrieve records from the myyiew database view</p>
+            </div>
+            <div class="query-box">
+SELECT * FROM myyiew;
+            </div>
+            <p><strong>Usage:</strong> Used by <span class="highlight">sixthQuery()</span> method to retrieve formatted view data.</p>
+        </div>
+        
+        <!-- Database Methods -->
+        <div class="card accent3" id="methods">
+            <h2>⚙️ Database Methods (DbUtilsCls)</h2>
+            
+            <h3>Method 1: retRegs()</h3>
+            <div class="method-signature">
+public List&lt;Register&gt; retRegs()
+            </div>
+            
+            <h4>Description</h4>
+            <p>Retrieves all Register records from the database using a PreparedStatement.</p>
+            
+            <h4>Implementation Details</h4>
+            <ul>
+                <li>Executes: <code>SELECT * FROM register</code></li>
+                <li>Uses: PreparedStatement for safe query execution</li>
+                <li>Returns: List of Register objects</li>
+                <li>Error Handling: SQLException caught and printed</li>
+            </ul>
+            
+            <h4>Example Usage</h4>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; registers = db.retRegs();
+registers.forEach(System.out::println);
+            </div>
+            
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+            
+            <h3>Method 2: retList()</h3>
+            <div class="method-signature">
+public List&lt;MyView&gt; retList()
+            </div>
+            
+            <h4>Description</h4>
+            <p>Retrieves MyView records from the database view (myyiew).</p>
+            
+            <h4>Implementation Details</h4>
+            <ul>
+                <li>Executes: <code>SELECT * FROM myyiew</code></li>
+                <li>Uses: Statement for executing the query</li>
+                <li>Returns: List of MyView objects</li>
+                <li>Error Handling: SQLException caught and printed</li>
+            </ul>
+            
+            <h4>Example Usage</h4>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;MyView&gt; views = db.retList();
+views.forEach(System.out::println);
+            </div>
+            
+            <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+            
+            <h3>Method 3: retRegsProc()</h3>
+            <div class="method-signature">
+public List&lt;Register&gt; retRegsProc()
+            </div>
+            
+            <h4>Description</h4>
+            <p>Retrieves Register records by executing a stored procedure.</p>
+            
+            <h4>Implementation Details</h4>
+            <ul>
+                <li>Executes: Stored procedure <code>myproc</code></li>
+                <li>Uses: CallableStatement for executing procedures</li>
+                <li>Returns: List of Register objects</li>
+                <li>Error Handling: SQLException caught and printed</li>
+            </ul>
+            
+            <h4>Example Usage</h4>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; registers = db.retRegsProc();
+registers.forEach(r -&gt; System.out.println(r.id() + ": " + r.name()));
+            </div>
+            
+            <div class="info-box">
+                ℹ️ <strong>Note:</strong> The stored procedure <code>myproc</code> must exist in the database.
+            </div>
+        </div>
+        
+        <!-- Usage Examples -->
+        <div class="card" id="examples">
+            <h2>💡 Usage Examples</h2>
+            
+            <h3>Example 1: Getting All Registers</h3>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; allRegisters = db.retRegs();
+
+for (Register reg : allRegisters) {
+    System.out.println("ID: " + reg.id());
+    System.out.println("Name: " + reg.name());
+    System.out.println("Email: " + reg.email());
+    System.out.println("Mobile: " + reg.mobile());
+    System.out.println("---");
+}
+            </div>
+            
+            <h3>Example 2: Filtering with Streams</h3>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; registers = db.retRegs();
+
+// Filter names starting with 'J'
+registers.stream()
+    .filter(r -&gt; r.name().startsWith("J"))
+    .forEach(System.out::println);
+            </div>
+            
+            <h3>Example 3: Statistical Analysis</h3>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; registers = db.retRegs();
+
+var summary = registers.stream()
+    .map(Register::id)
+    .collect(Collectors.summarizingInt(i -&gt; i));
+
+System.out.println("Max ID: " + summary.getMax());
+System.out.println("Min ID: " + summary.getMin());
+System.out.println("Average ID: " + summary.getAverage());
+System.out.println("Count: " + summary.getCount());
+System.out.println("Sum: " + summary.getSum());
+            </div>
+            
+            <h3>Example 4: Sorting Records</h3>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;Register&gt; registers = db.retRegs();
+
+// Sort by ID descending
+registers.stream()
+    .sorted((a, b) -&gt; b.id() - a.id())
+    .forEach(System.out::println);
+            </div>
+            
+            <h3>Example 5: View Data Retrieval</h3>
+            <div class="code">
+DbUtilsCls db = new DbUtilsCls();
+List&lt;MyView&gt; views = db.retList();
+
+views.forEach(view -&gt; {
+    System.out.println("Name: " + view.name());
+    System.out.println("Email: " + view.email());
+    System.out.println("Mobile: " + view.mobile());
+    System.out.println("Address: " + view.raddress());
+    System.out.println();
+});
+            </div>
+        </div>
+        
+        <!-- Database Schema -->
+        <div class="card" id="schema">
+            <h2>📊 Database Schema</h2>
+            
+            <h3>Register Table</h3>
+            <div class="query-box">
+CREATE TABLE register (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    mobile VARCHAR(20)
+);
+            </div>
+            
+            <h3>MyView Database View</h3>
+            <div class="query-box">
+CREATE VIEW myyiew AS
+SELECT id, name, email, mobile, address AS raddress
+FROM register;
+            </div>
+            
+            <h3>Stored Procedure</h3>
+            <div class="query-box">
+CREATE PROCEDURE myproc()
+BEGIN
+    SELECT * FROM register;
+END;
+            </div>
+            
+            <h3>Data Structure</h3>
+            <table>
+                <tr>
+                    <th>Column</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>id</td>
+                    <td>INT</td>
+                    <td>User unique identifier (Primary Key)</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>VARCHAR(100)</td>
+                    <td>User's full name</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>VARCHAR(100)</td>
+                    <td>User's email address</td>
+                </tr>
+                <tr>
+                    <td>mobile</td>
+                    <td>VARCHAR(20)</td>
+                    <td>User's phone number</td>
+                </tr>
+            </table>
+            
+            <div class="success-box">
+                ✓ <strong>Sample Data:</strong> The register table contains sample user data that can be queried 
+                using the predefined queries or through custom SQL statements.
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>&copy; 2026 Development Team. All rights reserved.</strong></p>
+            <p>FifthProj Database & Query Guide | Generated: March 5, 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

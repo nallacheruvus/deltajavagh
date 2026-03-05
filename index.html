@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FifthProj - Documentation Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 80px 20px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            animation: slideDown 0.8s ease;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .hero .subtitle {
+            font-size: 1em;
+            opacity: 0.8;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex: 1;
+        }
+        
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .doc-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .card-description {
+            color: #666;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+        
+        .card-features li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .card-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .card-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .card-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .info-section {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .info-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-item {
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        
+        .info-item h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        .info-item p {
+            color: #555;
+            font-size: 0.9em;
+        }
+        
+        footer {
+            background: rgba(0,0,0,0.2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+        
+        .breadcrumb {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .toc {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .toc h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .toc ol {
+            margin-left: 20px;
+        }
+        
+        .toc li {
+            margin: 10px 0;
+            color: #555;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        .packages-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .packages-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .package-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .package-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .package-item strong {
+            color: #667eea;
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>📚 FifthProj Documentation</h1>
+        <p>Complete API Reference & Developer Guide</p>
+        <p class="subtitle">Java Application with Stream Processing & Database Operations</p>
+    </div>
+    
+    <div class="container">
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="stat-box">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Java Classes</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Packages</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">6</div>
+                <div class="stat-label">SQL Queries</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3</div>
+                <div class="stat-label">HTML Docs</div>
+            </div>
+        </div>
+        
+        <!-- Documentation Cards -->
+        <div class="docs-grid">
+            <!-- JavaDoc Main -->
+            <div class="doc-card">
+                <div class="card-icon">📖</div>
+                <div class="card-title">JavaDoc Reference</div>
+                <p class="card-description">
+                    Comprehensive JavaDoc documentation with detailed class, method, and field information.
+                </p>
+                <ul class="card-features">
+                    <li>Class descriptions</li>
+                    <li>Method signatures</li>
+                    <li>Field documentation</li>
+                    <li>All packages covered</li>
+                </ul>
+                <a href="javadoc.html" class="card-link">Open Documentation →</a>
+            </div>
+            
+            <!-- API Reference -->
+            <div class="doc-card">
+                <div class="card-icon">🔌</div>
+                <div class="card-title">API Reference</div>
+                <p class="card-description">
+                    Complete API reference with sidebar navigation and detailed method signatures with examples.
+                </p>
+                <ul class="card-features">
+                    <li>All classes documented</li>
+                    <li>Quick navigation</li>
+                    <li>Architecture overview</li>
+                    <li>Usage examples</li>
+                </ul>
+                <a href="APIReference.html" class="card-link">View API Reference →</a>
+            </div>
+            
+            <!-- Database Guide -->
+            <div class="doc-card">
+                <div class="card-icon">🗄️</div>
+                <div class="card-title">Database & Queries</div>
+                <p class="card-description">
+                    Complete database guide with connection parameters, all available queries, and usage examples.
+                </p>
+                <ul class="card-features">
+                    <li>Connection setup</li>
+                    <li>All SQL queries</li>
+                    <li>Database schema</li>
+                    <li>Code examples</li>
+                </ul>
+                <a href="DatabaseGuide.html" class="card-link">Database Guide →</a>
+            </div>
+        </div>
+        
+        <!-- Projects Overview -->
+        <div class="packages-section">
+            <h2>📦 Project Packages</h2>
+            <div class="package-list">
+                <div class="package-item">
+                    <strong>com.sa.cls</strong>
+                    <p>Query operations and testing (MnClsA, TestCls)</p>
+                </div>
+                <div class="package-item">
+                    <strong>com.sa.db</strong>
+                    <p>Database utilities (DbUtilsCls)</p>
+                </div>
+                <div class="package-item">
+                    <strong>com.sa.recs</strong>
+                    <p>Data records (Register, MyView)</p>
+                </div>
+                <div class="package-item">
+                    <strong>comm.sa.inte</strong>
+                    <p>Database interface (IFaceDbUtil)</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Information -->
+        <div class="info-section">
+            <h2>🎯 Key Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Database</h3>
+                    <p><strong>deltajavamarch</strong> on localhost:3306</p>
+                </div>
+                <div class="info-item">
+                    <h3>JDBC Driver</h3>
+                    <p><strong>com.mysql.cj.jdbc.Driver</strong> (MySQL Connector/J)</p>
+                </div>
+                <div class="info-item">
+                    <h3>Authentication</h3>
+                    <p>Username: <strong>root</strong>, Password: <strong>admin</strong></p>
+                </div>
+                <div class="info-item">
+                    <h3>Java Features</h3>
+                    <p>Records, Streams API, Lambda Expressions</p>
+                </div>
+                <div class="info-item">
+                    <h3>Main Tables</h3>
+                    <p><strong>register</strong> table with users data</p>
+                </div>
+                <div class="info-item">
+                    <h3>Version</h3>
+                    <p><strong>1.0</strong> - Generated March 5, 2026</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Navigation -->
+        <div class="toc">
+            <h2>🗂️ Documentation Files</h2>
+            <ol>
+                <li><a href="javadoc.html">javadoc.html</a> - Main JavaDoc Documentation</li>
+                <li><a href="APIReference.html">APIReference.html</a> - Complete API Reference with Sidebar</li>
+                <li><a href="DatabaseGuide.html">DatabaseGuide.html</a> - Database & Query Guide</li>
+                <li><strong>index.html</strong> - This Documentation Hub (You are here)</li>
+            </ol>
+        </div>
+        
+        <!-- Project Summary -->
+        <div class="info-section">
+            <h2>📋 Project Summary</h2>
+            
+            <h3>Overview</h3>
+            <p>
+                <strong>FifthProj</strong> is a Java application that demonstrates modern Java features including Records (Java 14+), 
+                Streams API, and functional programming. The project focuses on performing various database operations and data 
+                analysis on user registration records stored in a MySQL database.
+            </p>
+            
+            <h3>Core Components</h3>
+            <ul>
+                <li><strong>MnClsA</strong> - Main class with 8 query methods demonstrating Streams API usage</li>
+                <li><strong>DbUtilsCls</strong> - Database utility class with 3 data retrieval methods</li>
+                <li><strong>Register</strong> - Java Record for user registration data</li>
+                <li><strong>MyView</strong> - Java Record for view data with custom formatting</li>
+                <li><strong>IFaceDbUtil</strong> - Interface defining database configuration and SQL queries</li>
+                <li><strong>TestCls</strong> - Test class for verifying Record functionality</li>
+            </ul>
+            
+            <h3>Key Features</h3>
+            <ul>
+                <li>Stream-based filtering and sorting of records</li>
+                <li>Statistical analysis (max, min, average, sum, count)</li>
+                <li>Functional programming with Lambda expressions</li>
+                <li>Prepared statements and callable statements for database operations</li>
+                <li>Immutable data structures using Java Records</li>
+                <li>Support for both direct queries and stored procedures</li>
+            </ul>
+            
+            <h3>Technologies Used</h3>
+            <ul>
+                <li>Java 14+ (Records, Stream API)</li>
+                <li>MySQL Database</li>
+                <li>JDBC for database connectivity</li>
+                <li>Functional Programming Paradigm</li>
+            </ul>
+        </div>
+    </div>
+    
+    <footer>
+        <p><strong>&copy; 2026 Development Team. All rights reserved.</strong></p>
+        <p>FifthProj Documentation Hub | Generated: March 5, 2026 | Version 1.0</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">📧 For support or questions, contact the development team</p>
+    </footer>
+</body>
+</html>
